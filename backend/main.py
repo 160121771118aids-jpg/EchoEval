@@ -8,7 +8,7 @@ app = FastAPI(title="Communication Coach API", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[FRONTEND_URL, "http://localhost:5173"],
+    allow_origins=[FRONTEND_URL,  "https://echo-eval-frontend.vercel.app","http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
