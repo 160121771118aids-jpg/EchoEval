@@ -20,10 +20,10 @@ async function request(path, options = {}) {
 
 export const api = {
   // Auth
-  signup: (data) => request('/signup', { method: 'POST', body: JSON.stringify(data) }),
-  login: (data) => request('/login', { method: 'POST', body: JSON.stringify(data) }),
-  googleAuth: (accessToken) => request('/google', { method: 'POST', body: JSON.stringify({ access_token: accessToken }) }),
-  getMe: () => request('/me'),
+    signup: (data) => request('/auth/signup', { method: 'POST', body: JSON.stringify(data) }),
+  login: (data) => request('/auth/login', { method: 'POST', body: JSON.stringify(data) }),
+  googleAuth: (accessToken) => request('/auth/google', { method: 'POST', body: JSON.stringify({ access_token: accessToken }) }),
+  getMe: () => request('/auth/me'),
 
   // Sessions
   listSessions: () => request('/sessions'),
