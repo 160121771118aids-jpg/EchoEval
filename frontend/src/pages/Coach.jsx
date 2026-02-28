@@ -136,9 +136,8 @@ export default function Coach() {
       setCurrentSession(data);
       setState(STATES.ACTIVE);
 
-      await vapi.start({
-        ...data.vapi_config.assistant,
-        metadata: data.vapi_config.metadata,
+      await vapi.start(data.vapi_config.assistantId, {
+        metadata: data.vapi_config.assistantOverrides.metadata,
       });
     } catch (err) {
       console.error('Failed to start call:', err);

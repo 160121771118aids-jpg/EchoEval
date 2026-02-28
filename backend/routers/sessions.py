@@ -3,7 +3,7 @@ from models.schemas import SessionCreate, StartCallRequest
 from routers.auth import get_current_user
 from services.supabase_client import supabase_admin
 from routers.vapi_webhook import COACHING_SYSTEM_PROMPT, COACHING_FIRST_MESSAGE
-from config import VAPI_SERVER_URL
+from config import VAPI_SERVER_URL,VAPI_ASSISTANT_ID
 
 router = APIRouter()
 
@@ -63,27 +63,13 @@ async def start_session(body: StartCallRequest, user=Depends(get_current_user)):
         "session_id": session_data["id"],
         "session_type": "practice",
         "vapi_config": {
-            "metadata": {
-                "user_id": user.id,
-                "session_id": session_data["id"],
-                "session_type": "practice",
-            },
-            "assistant": {
-                "model": {
-                    "provider": "openai",
-                    "model": "gpt-4o-mini",
-                    "messages": [{"role": "system", "content": COACHING_SYSTEM_PROMPT}],
-                },
-                "voice": {
-                    "provider": "11labs",
-                    "voiceId": "21m00Tcm4TlvDq8ikWAM",
-                },
-                "firstMessage": COACHING_FIRST_MESSAGE,
-                "firstMessageMode": "assistant-speaks-first",
-                "endCallFunctionEnabled": True,
-                "maxDurationSeconds": 300,
-                "recordingEnabled": True,
-                "serverUrl": VAPI_SERVER_URL + "/api/vapi/webhook",
+            "assistantId": VAPI_ASSISTANT_ID,         # just an ID, no prompt
+            "assistantOverrides": {
+                "metadata": {
+                    "user_id": user.id,
+                    "session_id": session_data["id"],
+                    "session_type": "practice",
+                }
             },
         },
     }
